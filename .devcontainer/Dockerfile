@@ -23,10 +23,13 @@ RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 # Python + requirements (copy early for cache)
-COPY requirements.txt /tmp/requirements.txt
+COPY ../requirements.txt /tmp/requirements.txt
 
-RUN apt-get update && apt-get install -y python3 python3-pip && \
-    pip3 install --no-cache-dir -r /tmp/requirements.txt && \
-    rm -rf /var/lib/apt/lists/*
+# RUN apt-get update && apt-get install -y python3 python3-pip && \
+#     pip3 install --no-cache-dir -r /tmp/requirements.txt && \
+#     rm -rf /var/lib/apt/lists/*
+
+RUN apt-get update && apt-get install -y python3 python3-pip
+
 
 WORKDIR /workspaces
